@@ -13,11 +13,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("message", (msg) => {
-    console.log(`message: ${msg}`);
     socket.broadcast.emit("message", {
-      message: msg,
+      text: msg.text,
+      user: msg.user,
       date: new Date(Date.now()),
-      user: socket.id,
+      socket_id: socket.id,
     });
   });
 });

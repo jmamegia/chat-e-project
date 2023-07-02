@@ -5,14 +5,14 @@ import send from "../assets/send.png";
 
 const MessageForm = () => {
   const { socket } = useSocket();
-  const { addMessage } = useAppState();
+  const { addMessage, userName } = useAppState();
   const [outgoingMessage, setOutgoingMessage] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    socket.emit("message", outgoingMessage);
+    socket.emit("message", { text: outgoingMessage, user: userName });
     addMessage({
-      user: "Me",
-      message: outgoingMessage,
+      user: userName,
+      text: outgoingMessage,
       date: new Date(Date.now()),
     });
     setOutgoingMessage("");
